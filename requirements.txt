@@ -5,3 +5,6 @@
 azure-functions
 sqlalchemy
 pytest
+SQLAlchemy~=2.0.20
+pyodbc~=4.0.39
+python-dotenv-vault~=0.6.3
