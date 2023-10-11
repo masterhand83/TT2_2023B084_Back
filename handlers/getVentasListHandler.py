@@ -42,6 +42,7 @@ def get_ventas_handler():
     final_result = []
     result = session.execute(stmt).scalars().all()
     session.commit()
+    session.close()
     for r in result:
         venta_items = []
         for dt in r.detalles_venta:

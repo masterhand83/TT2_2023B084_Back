@@ -14,7 +14,6 @@ from .connect import create_session;
 # };
 def add_producto_handler(producto = {}):
   session = create_session()
-  print(producto)
   stmt1 = insert(Producto).values(
     codigo = producto["codigo"],
     nombre = producto["nombre"],
@@ -26,4 +25,5 @@ def add_producto_handler(producto = {}):
   )
   session.execute(stmt1)
   session.commit()
+  session.close()
   return True

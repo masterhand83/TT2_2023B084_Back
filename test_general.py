@@ -2,6 +2,7 @@ import pytest
 from handlers.hacerCompraHandler import hacer_compra_handler;
 from handlers.getVentasListHandler import get_ventas_handler;
 from handlers.addProductoHandler import add_producto_handler;
+from handlers.addStockHandler import add_stock_handler;
 
 def sum(a, b):
   return a + b;
@@ -27,13 +28,9 @@ def sum(a, b):
 # }
 
 def test_hacer_compra():
-  add_producto_handler({
-    "key": "1234",
+  add_stock_handler({
     "codigo": "123",
-    "nombre": "producto por añadir 3",
-    "marca": 1,
-    "stock": 123,
-    "precio": 500.05
+    "newstock": 100,
   })
 
   # print(get_ventas_handler())

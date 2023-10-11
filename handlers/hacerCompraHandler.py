@@ -29,4 +29,5 @@ def hacer_compra_handler(lista_compras = []):
     print(stmt3)
     session.execute(stmt3)
   session.commit()
+  session.close()
   return True
