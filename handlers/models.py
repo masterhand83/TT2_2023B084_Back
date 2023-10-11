@@ -83,6 +83,7 @@ class Producto(Base):
     descripcion: Mapped[str] = mapped_column(VARCHAR(200), nullable=False)
     id_marca: Mapped[SmallInteger] = mapped_column(ForeignKey("MARCA.id"), nullable=False)
     activo: Mapped[bool] = mapped_column(BIT, nullable=False, server_default=text("1"))
+
     marca: Mapped["Marca"] = relationship("Marca", back_populates="productos")
     actualizaciones: Mapped[List["ActualizacionProducto"]] = relationship("ActualizacionProducto",
                                                                           back_populates="producto")

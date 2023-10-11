@@ -1,6 +1,7 @@
 import pytest
 from handlers.hacerCompraHandler import hacer_compra_handler;
 from handlers.getVentasListHandler import get_ventas_handler;
+from handlers.addProductoHandler import add_producto_handler;
 
 def sum(a, b):
   return a + b;
@@ -26,7 +27,16 @@ def sum(a, b):
 # }
 
 def test_hacer_compra():
-  print(get_ventas_handler())
+  add_producto_handler({
+    "key": "1234",
+    "codigo": "123",
+    "nombre": "producto por añadir 3",
+    "marca": 1,
+    "stock": 123,
+    "precio": 500.05
+  })
+
+  # print(get_ventas_handler())
   assert True
 
 test_hacer_compra()
