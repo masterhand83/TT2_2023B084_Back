@@ -3,8 +3,8 @@
 # Manually managing azure-functions-worker may cause unexpected issues
 
 azure-functions
-sqlalchemy
-pytest
+sqlalchemy~=2.0.21
+pytest~=7.4.2
 SQLAlchemy~=2.0.20
 pyodbc~=4.0.39
 python-dotenv-vault~=0.6.3

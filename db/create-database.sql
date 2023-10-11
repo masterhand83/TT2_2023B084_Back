@@ -39,10 +39,11 @@ GO
 -- Definición de la tabla DETALLE_VENTA
 CREATE TABLE DETALLE_VENTA
 (
+    id_venta UNIQUEIDENTIFIER NOT NULL,
+    codigo_producto VARCHAR(20) NOT NULL,
     id INT IDENTITY(1,1) NOT NULL,
     cantidad SMALLINT NOT NULL,
-    codigo_producto VARCHAR(20) NOT NULL,
-    id_venta UNIQUEIDENTIFIER NOT NULL,
+    subtotal DECIMAL(8, 2) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (codigo_producto) REFERENCES PRODUCTO(codigo),
     FOREIGN KEY (id_venta) REFERENCES VENTA(id)
