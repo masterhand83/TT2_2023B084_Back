@@ -1,6 +1,6 @@
 import azure.functions as func
 from sqlalchemy import select,insert, update;
-from .models import Venta,Producto, DetalleVenta;
+from .models import RegistroExistencia, Venta,Producto, DetalleVenta;
 from sqlalchemy.ext.serializer import loads, dumps;
 import json
 from .connect import create_session;
@@ -24,6 +24,14 @@ def add_producto_handler(producto = {}):
     activo = True
   )
   session.execute(stmt1)
+  add_stock_history = (
+    insert(RegistroExistencia)
+    .values(
+      codigo_producto = producto["codigo"],
+      existencia = producto["stock"],
+    )
+  )
+  session.execute(add_stock_history)
   session.commit()
   session.close()
   return True
