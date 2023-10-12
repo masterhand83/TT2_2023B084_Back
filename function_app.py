@@ -7,6 +7,7 @@ from handlers.getVentasListHandler import get_ventas_handler;
 from handlers.addProductoHandler import add_producto_handler;
 from handlers.addStockHandler import add_stock_handler;
 from handlers.removeStockHandler import remove_stock_handler;
+from handlers.desactivarProductoHandler import desactivar_producto_handler;
 
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
@@ -31,11 +32,11 @@ def get_ventas(req: func.HttpRequest) -> func.HttpResponse:
 #     "codigo": "123",
 #     "newstock": 5,
 # }
-@app.route(route="add-stock", methods=["POST"])
-def add_stock(req: func.HttpRequest) -> func.HttpResponse:
+@app.route(route="desactivar-producto", methods=["POST"])
+def desactivar_producto(req: func.HttpRequest) -> func.HttpResponse:
     text_body = req.get_body().decode()
     dictionary_body = json.loads(text_body)
-    result = add_stock_handler(dictionary_body)
+    result = desactivar_producto_handler(dictionary_body["codigo"])
     return func.HttpResponse(
         status_code=200
     )
@@ -53,6 +54,19 @@ def remove_stock(req: func.HttpRequest) -> func.HttpResponse:
         status_code=200
     )
 
+
+# {
+#     "codigo": "123",
+#     "newstock": 100,
+# }
+@app.route(route="add-stock", methods=["POST"])
+def add_stock(req: func.HttpRequest) -> func.HttpResponse:
+    text_body = req.get_body().decode()
+    dictionary_body = json.loads(text_body)
+    result = add_stock_handler(dictionary_body)
+    return func.HttpResponse(
+        status_code=200
+    )
 # {
 #     "key": "1234",
 #     "codigo": "123",
@@ -104,6 +118,15 @@ def hacer_compra(req: func.HttpRequest) -> func.HttpResponse:
         status_code=200
     )
 
+
+@app.route(route="hacer-compra", methods=["POST"])
+def hacer_compra(req: func.HttpRequest) -> func.HttpResponse:
+    text_body = req.get_body().decode()
+    dictionary_body = json.loads(text_body)
+    result = hacer_compra_handler(dictionary_body)
+    return func.HttpResponse(
+        status_code=200
+    )
 @app.route(route="tt-backend")
 def tt_backend(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')

@@ -4,6 +4,7 @@ from handlers.getVentasListHandler import get_ventas_handler;
 from handlers.addProductoHandler import add_producto_handler;
 from handlers.addStockHandler import add_stock_handler;
 from handlers.removeStockHandler import remove_stock_handler;
+from handlers.desactivarProductoHandler import desactivar_producto_handler;
 
 def sum(a, b):
   return a + b;
@@ -55,7 +56,7 @@ def test_hacer_compra():
       }
     }
   ]
-  hacer_compra_handler(lista)
+  #hacer_compra_handler(lista)
   # producto = {
   #     "key": "1234",
   #     "codigo": "123",
@@ -71,6 +72,7 @@ def test_hacer_compra():
   # })
 
   # print(get_ventas_handler())
+  desactivar_producto_handler("PROD001");
   assert True
 
 test_hacer_compra()
