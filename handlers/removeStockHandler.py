@@ -1,6 +1,6 @@
 import azure.functions as func
 from sqlalchemy import select, insert, update
-from .models import Venta, Producto, DetalleVenta, RegistroMerma
+from .models import Venta, Producto, DetalleVenta, RegistroMerma, RegistroExistencia
 from sqlalchemy.ext.serializer import loads, dumps
 import json
 from .connect import create_session
@@ -26,9 +26,18 @@ def remove_stock_handler(entrada={}):
         insert(RegistroMerma).values(
             codigo_producto=codigo,
             merma=merma,
+            subtotal=producto.precio_unitario * merma,
         )
     )
     session.execute(add_mermas_stmt)
+    remove_existencia_stmt = (
+        insert(RegistroExistencia).values(
+            codigo_producto=codigo,
+            existencia=existencias_actual - merma,
+        )
+    )
+    session.execute(remove_existencia_stmt)
+
     session.commit()
     session.close()
     return True
