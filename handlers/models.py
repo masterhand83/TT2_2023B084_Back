@@ -88,6 +88,8 @@ class Producto(Base):
     actualizaciones: Mapped[List["ActualizacionProducto"]] = relationship("ActualizacionProducto",
                                                                           back_populates="producto")
     detalles_venta: Mapped[List["DetalleVenta"]] = relationship("DetalleVenta", back_populates="producto")
+    historial_merma: Mapped[List["RegistroMerma"]] = relationship("RegistroMerma", back_populates="producto")
+    historial_existencia: Mapped[List["RegistroExistencia"]] = relationship("RegistroExistencia", back_populates="producto")
 
     def __repr__(self):
         return (f"Producto(codigo={self.codigo}, nombre={self.nombre}, precio_unitario={self.precio_unitario}, "
@@ -103,6 +105,47 @@ class Producto(Base):
             "marca": self.marca.marca,
             "activo": self.activo
         }
+
+class RegistroMerma(Base):
+    __tablename__ = 'REGISTRO_MERMA'
+
+    id: Mapped[int] = mapped_column(INTEGER, primary_key=True)
+    codigo_producto: Mapped[str] = mapped_column(
+        ForeignKey("PRODUCTO.codigo"),
+        nullable=False
+    )
+    fecha: Mapped[DateTime] = mapped_column(
+        SMALLDATETIME,
+        nullable=False,
+        server_default=text("GETDATE()")
+    )
+    merma: Mapped[SmallInteger] = mapped_column(SMALLINT, nullable=False)
+    subtotal: Mapped[float] = mapped_column(DECIMAL(8, 2), nullable=False)
+    producto: Mapped["Producto"] = relationship(
+        "Producto",
+        back_populates="historial_merma"
+    )
+
+class RegistroExistencia(Base):
+    __tablename__ = 'REGISTRO_EXISTENCIA'
+
+    id: Mapped[int] = mapped_column(INTEGER, primary_key=True)
+    codigo_producto: Mapped[str] = mapped_column(
+        ForeignKey("PRODUCTO.codigo"),
+        nullable=False
+    )
+    fecha: Mapped[DateTime] = mapped_column(
+        SMALLDATETIME,
+        nullable=False,
+        server_default=text("GETDATE()")
+    )
+    existencia: Mapped[SmallInteger] = mapped_column(SMALLINT, nullable=False)
+    producto: Mapped["Producto"] = relationship(
+        "Producto",
+        back_populates="historial_existencia"
+    )
+
+
 
 
 class Venta(Base):

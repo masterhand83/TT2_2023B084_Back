@@ -6,6 +6,7 @@ from handlers.hacerCompraHandler import hacer_compra_handler;
 from handlers.getVentasListHandler import get_ventas_handler;
 from handlers.addProductoHandler import add_producto_handler;
 from handlers.addStockHandler import add_stock_handler;
+from handlers.removeStockHandler import remove_stock_handler;
 
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
@@ -38,6 +39,28 @@ def add_stock(req: func.HttpRequest) -> func.HttpResponse:
     return func.HttpResponse(
         status_code=200
     )
+
+# {
+#     "codigo": "123",
+#     "merma": 100,
+# }
+@app.route(route="remove-stock", methods=["POST"])
+def remove_stock(req: func.HttpRequest) -> func.HttpResponse:
+    text_body = req.get_body().decode()
+    dictionary_body = json.loads(text_body)
+    result = remove_stock_handler(dictionary_body)
+    return func.HttpResponse(
+        status_code=200
+    )
+
+# {
+#     "key": "1234",
+#     "codigo": "123",
+#     "nombre": "producto por añadir 3",
+#     "marca": 1,
+#     "stock": 123,
+#     "precio": 500.05
+# }
 @app.route(route="add-producto", methods=["POST"])
 def add_producto(req: func.HttpRequest) -> func.HttpResponse:
     text_body = req.get_body().decode()
@@ -46,7 +69,32 @@ def add_producto(req: func.HttpRequest) -> func.HttpResponse:
     return func.HttpResponse(
         status_code=200
     )
-
+# [
+#   {
+#     "key": "PROD003",
+#     "cantidad": 2,
+#     "producto": {
+#       "key": "PROD003",
+#       "codigo": "PROD001",
+#       "nombre": "Producto 1",
+#       "marca": "Marca 1",
+#       "stock": 10,
+#       "precio": 100
+#     }
+#   },
+#   {
+#     "key": "PROD004",
+#     "cantidad": 2,
+#     "producto": {
+#       "key": "PROD004",
+#       "codigo": "PROD001",
+#       "nombre": "Producto 1",
+#       "marca": "Marca 1",
+#       "stock": 10,
+#       "precio": 100
+#     }
+#   }
+# ]
 @app.route(route="hacer-compra", methods=["POST"])
 def hacer_compra(req: func.HttpRequest) -> func.HttpResponse:
     text_body = req.get_body().decode()

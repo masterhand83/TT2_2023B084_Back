@@ -27,6 +27,29 @@ CREATE TABLE PRODUCTO
 );
 GO
 
+CREATE TABLE REGISTRO_MERMA
+(
+    codigo_producto VARCHAR(20) NOT NULL,
+    id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID(),
+    fecha SMALLDATETIME NOT NULL DEFAULT GETDATE(),
+    merma SMALLINT NOT NULL,
+    subtotal DECIMAL(8, 2) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (codigo_producto) REFERENCES PRODUCTO(codigo)
+);
+GO
+
+CREATE TABLE REGISTRO_EXISTENCIA
+(
+    codigo_producto VARCHAR(20) NOT NULL,
+    id UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID(),
+    fecha SMALLDATETIME NOT NULL DEFAULT GETDATE(),
+    existencia SMALLINT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (codigo_producto) REFERENCES PRODUCTO(codigo)
+);
+GO
+
 -- Definición de la tabla VENTA
 CREATE TABLE VENTA
 (
@@ -132,4 +155,35 @@ VALUES ('PROD009', 24.99, 120, 'Alfombrilla de Ratón', 'Alfombrilla de ratón c
 
 INSERT INTO PRODUCTO (codigo, precio_unitario, existencias, nombre, descripcion, id_marca, activo)
 VALUES ('PROD010', 149.99, 25, 'Escritorio de Oficina', 'Escritorio de oficina con cajones y espacio para computadora.', 10, 1);
+GO
+
+INSERT INTO REGISTRO_EXISTENCIA (codigo_producto, existencia)
+VALUES ('PROD001', 100);
+
+INSERT INTO REGISTRO_EXISTENCIA (codigo_producto, existencia)
+VALUES ('PROD002', 50);
+
+INSERT INTO REGISTRO_EXISTENCIA (codigo_producto, existencia)
+VALUES ('PROD003', 200);
+
+INSERT INTO REGISTRO_EXISTENCIA (codigo_producto, existencia)
+VALUES ('PROD004', 30);
+
+INSERT INTO REGISTRO_EXISTENCIA (codigo_producto, existencia)
+VALUES ('PROD005', 150);
+
+INSERT INTO REGISTRO_EXISTENCIA (codigo_producto, existencia)
+VALUES ('PROD006', 80);
+
+INSERT INTO REGISTRO_EXISTENCIA (codigo_producto, existencia)
+VALUES ('PROD007', 250);
+
+INSERT INTO REGISTRO_EXISTENCIA (codigo_producto, existencia)
+VALUES ('PROD008', 40);
+
+INSERT INTO REGISTRO_EXISTENCIA (codigo_producto, existencia)
+VALUES ('PROD009', 120);
+
+INSERT INTO REGISTRO_EXISTENCIA (codigo_producto, existencia)
+VALUES ('PROD010', 25);
 GO

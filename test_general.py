@@ -3,6 +3,7 @@ from handlers.hacerCompraHandler import hacer_compra_handler;
 from handlers.getVentasListHandler import get_ventas_handler;
 from handlers.addProductoHandler import add_producto_handler;
 from handlers.addStockHandler import add_stock_handler;
+from handlers.removeStockHandler import remove_stock_handler;
 
 def sum(a, b):
   return a + b;
@@ -28,9 +29,9 @@ def sum(a, b):
 # }
 
 def test_hacer_compra():
-  add_stock_handler({
-    "codigo": "123",
-    "newstock": 100,
+  remove_stock_handler({
+    "codigo": "PROD001",
+    "merma": 100,
   })
 
   # print(get_ventas_handler())
