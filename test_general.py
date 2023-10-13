@@ -1,6 +1,7 @@
 import pytest
 from handlers.hacerCompraHandler import hacer_compra_handler;
 from handlers.getVentasListHandler import get_ventas_handler;
+from handlers.getAllMarcasHandler import get_all_marcas_handler;
 from handlers.addProductoHandler import add_producto_handler;
 from handlers.addStockHandler import add_stock_handler;
 from handlers.removeStockHandler import remove_stock_handler;
@@ -72,7 +73,8 @@ def test_hacer_compra():
   # })
 
   # print(get_ventas_handler())
-  desactivar_producto_handler("PROD001");
+  ##desactivar_producto_handler("PROD001");
+  print(get_all_marcas_handler())
   assert True
 
 test_hacer_compra()

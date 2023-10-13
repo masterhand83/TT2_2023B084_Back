@@ -17,8 +17,8 @@ def add_producto_handler(producto = {}):
   stmt1 = insert(Producto).values(
     codigo = producto["codigo"],
     nombre = producto["nombre"],
-    precio_unitario = producto["precio"],
-    existencias = producto["stock"],
+    precio_unitario = producto["precio_unitario"],
+    existencias = producto["existencias"],
     descripcion = "placeholder",
     id_marca = producto["marca"],
     activo = True
@@ -28,7 +28,7 @@ def add_producto_handler(producto = {}):
     insert(RegistroExistencia)
     .values(
       codigo_producto = producto["codigo"],
-      existencia = producto["stock"],
+      existencia = producto["existencias"],
     )
   )
   session.execute(add_stock_history)
