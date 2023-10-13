@@ -41,8 +41,6 @@ def get_ventas_handler():
     stmt = select(Venta)
     final_result = []
     result = session.execute(stmt).scalars().all()
-    session.commit()
-    session.close()
     for r in result:
         venta_items = []
         for dt in r.detalles_venta:
@@ -63,6 +61,8 @@ def get_ventas_handler():
             "total": total,
         }
         final_result.append(venta)
+    session.commit()
+    session.close()
     return final_result
 # declare type VentaItem = {
 #   key: string;
